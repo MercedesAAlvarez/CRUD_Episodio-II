@@ -40,7 +40,7 @@ const controller = {
 	// Create -  Method to store
 	store: (req, res) => {
 		// Do the magic
-	/* 	return res.send(req.body) */
+		
 
 		let {name,price,discount,category,description}=req.body
 		let productoNuevo = {
@@ -51,7 +51,7 @@ const controller = {
 			discount,
 			category,
 			description,
-			image : "default-image.png",
+			image : req.file.originalname !== "" ? req.file.originalname : "default-image.png",
 		}
 		products.push(productoNuevo)
 		guardar(products)
@@ -83,6 +83,7 @@ const controller = {
 				producto.price = price,
 				producto.discount = discount,
 				producto.description = description
+				producto.image = req.file ? req.file.originalname : producto.image
 			}
 		});
 		guardar(products)
