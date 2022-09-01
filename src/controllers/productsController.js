@@ -96,6 +96,17 @@ const controller = {
 		// Do the magic
 		
 		idParams = +req.params.id
+
+        let producto = products.find(producto => product.id === idParams)
+		let ruta = fs.existsSync(path.join(__dirname,'..','..','public','images','productos',products.image))
+	
+		
+		if (ruta && producto.image !== "default-image.png") {
+			fs.unlinkSync(path.join(__dirname,'..','..','public','images','productos',products.image))
+		}
+
+		
+
 		let productosModificados = products.filter(producto => {
 			return producto.id !== idParams
 		})
